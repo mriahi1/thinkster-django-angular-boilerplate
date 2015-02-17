@@ -3,8 +3,8 @@ from django.shortcuts import render
 from rest_framework import permissions, viewsets
 
 from authentication.models import Account
-from Authentication.permissions import IsAccountOwner
-from Authentication.serializers import AccountSerializer
+from authentication.permissions import IsAccountOwner
+from authentication.serializers import AccountSerializer
 
 class AccountViewSet(viewsets.ModelViewSet):
 	lookup_field = 'username'
