@@ -40,26 +40,28 @@ class AccountViewSet(viewsets.ModelViewSet):
 
 # APIView allows us to handle AJAX requests better than djnago views
 class LoginView(views.APIView):
-	#logging in should typically be a POST request, so we override self.post()
-	def post(self, request, format=None):
-		data = json.loads(request.body)
+    def post(self, request, format=None):
+        data = json.loads(request.body)
 
-		email = data.get('email', None)
-		password = data.get('password', None)
+        email = data.get('email', None)
+        password = data.get('password', None)
 
-		#authenticate() is a django function that returns Account if verified
-		account = authenticate(email=email, password=password)
+        account = authenticate(email=email, password=password)
 
-		if account is not None:
-			if account.is_active:
-				# if authenticate() and user is active, create new session with login()
-				login(request, account)
-				#serialize the Account object found by authenticate()
-				serialized = AccountSerializer(account)
-				# return with resulting JSON as response
-				return Respnse(serialized.data)
-			else:
-				return Response({
-					'status': 'Unauthorized',
-					'message': 'Username/password combination invalid.'
-				}, status=status.HTTP_401_UNAUTHORIZED)
+        if account is not None:
+            if account.is_active:
+                login(request, account)
+
+                serialized = AccountSerializer(account)
+
+                return Response(serialized.data)
+            else:
+                return Response({
+                    'status': 'Unauthorized',
+                    'message': 'This account has been disabled.'
+                }, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            return Response({
+                'status': 'Unauthorized',
+                'message': 'Username/password combination invalid.'
+            }, status=status.HTTP_401_UNAUTHORIZED)

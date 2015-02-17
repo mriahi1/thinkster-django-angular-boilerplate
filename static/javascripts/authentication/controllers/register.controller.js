@@ -19,15 +19,6 @@
 
         vm.register = register;
 
-        /**
-         * @name register
-         * @desc Register a new user
-         * @memberOf thinkster.authentication.controllers.RegisterController
-         */
-        function register() {
-            Authentication.register(vm.email, vm.password, vm.username);
-        }
-
         activate();
 
         /**
@@ -40,6 +31,15 @@
             if (Authentication.isAuthenticated()) {
                 $location.url('/');
             }
+        }
+
+        /**
+         * @name register
+         * @desc Register a new user
+         * @memberOf thinkster.authentication.controllers.RegisterController
+         */
+        function register() {
+            Authentication.register(vm.email, vm.password, vm.username);
         }
     }
 })();

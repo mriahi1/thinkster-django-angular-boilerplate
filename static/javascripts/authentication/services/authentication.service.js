@@ -22,12 +22,11 @@
          */
         var Authentication = {
             getAuthenticatedAccount: getAuthenticatedAccount,
-            isAuthenticated: isAuthenticatedd,
+            isAuthenticated: isAuthenticated,
             login: login,
             register: register,
             setAuthenticatedAccount: setAuthenticatedAccount,
-            unauthenticate,
-            unauthenticate
+            unauthenticate: unauthenticate
         };
 
         return Authentication;
